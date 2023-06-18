@@ -265,7 +265,13 @@ const generateNewReport = async (user_id, month, year) => {
     if (!userExists) {
       return reject({ error: true, message: 'User not exists' });
     }
-
+     //Check if valid date
+    if (!validateYear(year)) {
+      return reject({ error: true, message: 'Invalid date, change year' });
+    }
+    if (!validateMonth(month)) {
+      return reject({ error: true, message: 'Invalid date, change month' });
+    }
     //Check if the requested report already exists and returning it
     let existingReport = await reports.findOne({
       user_id: user_id,
